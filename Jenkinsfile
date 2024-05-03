@@ -1,24 +1,32 @@
 pipeline {
-  agent any
-  stages {
-    stage ('test') {
-      steps {
-        bat 'docker ps -a'
-      }
+    agent any  
+    stages {
+        stage("test") {
+            steps {
+                echo "hello world"
+            }
+        }
+        stage("build") {
+            steps {
+                bat 'docker --version'
+                bat "docker-compose up -d --build"
+            }
+        }
     }
-    stage ('Run Docker Compose') {
-      steps {
-        bat 'docker-compose up  -d'
-      }
-      }
-      
+    post {
+        success {
+            emailext (
+                subject: "Notification de build Jenkins - Succès",
+                body: "Le build de votre pipeline Jenkins s'est terminé avec succès.",
+                to: "sambasy837@gmail.com",
+            )
+        }
+        failure {
+            emailext (
+                subject: "Notification de build Jenkins - Échec",
+                body: "Le build de votre pipeline Jenkins a échoué.",
+                to: "sambasy837@email.com",
+            )
+        }
     }
-  post {
-    success {
-     slackSend channel: '#aléatoire', message: 'code sucess'
-    }
-    failure {
-     slackSend channel: '#aléatoire', message: 'code error'
-    }
-  }
 }
