@@ -10,6 +10,8 @@ pipeline {
       steps {
         bat 'docker-compose up  -d'
       }
+      }
+      
     }
   post {
     success {
