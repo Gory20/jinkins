@@ -15,10 +15,10 @@ pipeline {
     }
   post {
     success {
-      slackSend channel: '#aléatoire', message: 'Code execute'
+     slackSend channel: '#aléatoire', message: 'code sucess'
     }
     failure {
-      slackSend channel: '#aléatoire', message: 'Code execute with error'
+     slackSend channel: '#aléatoire', message: 'code error'
     }
   }
 }
