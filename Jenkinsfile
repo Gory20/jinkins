@@ -11,7 +11,6 @@ pipeline {
         bat 'docker-compose up  -d'
       }
     }
-  }
   post {
     success {
       slackSend channel: '#Kotseko', message: 'Code execute'
